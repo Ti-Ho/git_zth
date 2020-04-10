@@ -1,0 +1,29 @@
+<!--
+	作者：offline
+	时间：2020-04-10
+	描述：菜鸟教程 JSON语法
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{utf-8}">
+		<title>菜鸟教程(runoob.com)</title>
+	</head>
+	<body>
+		<h2>JavaScript create JSON Object</h2>
+		<p>the first site name: <span id = "name1"></span></p>
+		<p>the first site name after modify:<span id = "name2"></span></p>
+		
+		<script>
+			var sites = [
+				{ "name":"runoob" , "url":"www.runoob.com" }, 
+				{ "name":"google" , "url":"www.google.com" }, 
+				{ "name":"微博" , "url":"www.weibo.com" }
+			]
+			document.getElementById("name1").innerHTML = sites[0].name;
+			sites[0].name = "vegetable bird";
+			document.getElementById("name2").innerHTML = sites[0].name;
+		</script>
+	</body>
+</html>
