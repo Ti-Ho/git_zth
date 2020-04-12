@@ -17,12 +17,15 @@
 	</head>
 
 	<body>
+		<!-- JSON解析实例 -->
 		<h2>从 JSON 对象中创建 JavaScript 对象</h2>
 		<p id="test1"></p>
 		<script>
 			var obj = JSON.parse('{ "name":"runoob", "alexa":10000, "site":"www.runoob.com" }');
 			document.getElementById("test1").innerHTML = obj.name + ": " + obj.site;
 		</script>
+
+		<!-- 从服务端接收JSON数据 -->
 		<h2>使用 XMLHttpRequest 来获取文件内容</h2>
 		<p>文件内容是标准的 JSON 格式，可以使用 JSON.parse 方法将其转换为 JavaScript 对象。</p>
 
@@ -52,8 +55,44 @@
 			方法二、启用 JSON.parse 的第二个参数 reviver，
 			一个转换结果的函数，对象的每个成员调用此函数。
 		-->
-		
-		
+		<!-- 方法1 转换为Date对象-->
+		<h2>将字符串转换为 Date 对象。</h2>
+		<p id="test3"></p>
+		<script>
+			var text = '{ "name":"Runoob", "initDate":"2013-12-14", "site":"www.runoob.com"}';
+			var obj = JSON.parse(text);
+			obj.initDate = new Date(obj.initDate);
+			document.getElementById("test3").innerHTML = obj.name + obj.initDate;
+		</script>
+
+		<!-- 方法2 reviver转换结果函数 -->
+		<p id="test4"></p>
+		<script>
+			var text = '{ "name":"Runoob", "initDate":"2013-12-14", "site":"www.runoob.com"}';
+			var obj = JSON.parse(text, function(key, value) {
+				if(key == "initDate") {
+					return new Date(value);
+				} else {
+					return value;
+				}
+			})
+			document.getElementById("test4").innerHTML = obj.initDate;
+		</script>
+
+		<!-- 解析函数
+			JSON不允许包含函数，
+			但你可以将函数作为字符串存储，
+			之后再将字符串转换为函数
+		-->
+		<h2>字符串转换为函数</h2>
+		<p id="test5"></p>
+
+		<script>
+			var text = '{ "name":"Runoob", "alexa":"function () {return 10000;}", "site":"www.runoob.com"}';
+			var obj = JSON.parse(text);
+			obj.alexa = eval("(" + obj.alexa + ")");
+			document.getElementById("test5").innerHTML = obj.name + " Alexa 排名：" + obj.alexa();
+		</script>
 	</body>
 
 </html>

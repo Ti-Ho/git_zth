@@ -1,0 +1,54 @@
+<!--
+	作者：zth
+	时间：2020-04-12
+	描述：菜鸟教程JSON.stringify()
+	
+	JSON 通常用于与服务端交换数据。
+	在向服务器发送数据时一般是字符串。
+	我们可以使用 JSON.stringify() 方法将 JavaScript 对象转换为字符串。
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>菜鸟教程(runoob.com)</title>
+	</head>
+
+	<body>
+		<!-- 1. JavaScript对象转换 -->
+		<h2>将 JavaScript 对象转换为 JSON 字符串</h2>
+		<p id="test"></p>
+		<script>
+			var obj = {
+				"name": "runoob",
+				"alexa": 10000,
+				"site": "www.runoob.com"
+			};
+			var myJSON = JSON.stringify(obj);
+			document.getElementById("test").innerHTML = myJSON;
+		</script>
+
+		<!-- JavaScript数组转换 
+			var arr = [ "Google", "Runoob", "Taobao", "Facebook" ];
+			var myJSON = JSON.stringify(arr);
+			document.getElementById("demo").innerHTML = myJSON;
+		-->
+
+		<!-- 异常 -->
+		<h2>JSON.stringify 将 Date 对象转换为字符串</h2>
+
+		<p id="demo"></p>
+
+		<script>
+			var obj = {
+				"name": "Runoob",
+				"initDate": new Date(),
+				"site": "www.runoob.com"
+			};
+			var myJSON = JSON.stringify(obj);
+			document.getElementById("demo").innerHTML = myJSON;
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <!-- 设置AOP Advices -->
+    <!--配置类-->
+    <bean id="print" class="log4j.PrintImpl"></bean>
+    <bean id="before" class="log4j.BeforeAdvice"></bean>
+    <bean id="after" class="log4j.AfterAdvice"></bean>
+    <!--配置代理类-->
+    <bean id="ProxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--如果没有找到ProxyFactoryBean类，则参考步骤1，引入Spring AOP相应的包-->
+        <!-- 指定代理接口，value值要绝对路径 -->
+        <property name="proxyInterfaces">
+            <value>log4j.Print</value>
+        </property>
+        <!-- 指定目标，这里用的是id名-->
+        <property name="target">
+            <ref bean="print"/>
+        </property>
+        <!-- 拦截实现类，可以多个 -->
+        <property name="interceptorNames">
+            <list>
+                <value>before</value>
+                <value>after</value>
+            </list>
+        </property>
+    </bean>
+</beans>
+
