@@ -1,0 +1,59 @@
+<!--
+	作者：zth
+	时间：2020-04-12
+	描述：菜鸟教程JSON.parse
+	内容: 
+	JSON通常用于与服务端交换数据。
+	在接收服务器数据时一般是字符串。
+	我们可以使用JSON.parse()方法将数据转换为JavaScript对象
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>菜鸟教程(runoob.com)</title>
+	</head>
+
+	<body>
+		<h2>从 JSON 对象中创建 JavaScript 对象</h2>
+		<p id="test1"></p>
+		<script>
+			var obj = JSON.parse('{ "name":"runoob", "alexa":10000, "site":"www.runoob.com" }');
+			document.getElementById("test1").innerHTML = obj.name + ": " + obj.site;
+		</script>
+		<h2>使用 XMLHttpRequest 来获取文件内容</h2>
+		<p>文件内容是标准的 JSON 格式，可以使用 JSON.parse 方法将其转换为 JavaScript 对象。</p>
+
+		<p id="demo"></p>
+
+		<script>
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if(this.readyState == 4 && this.status == 200) {
+					myObj = JSON.parse(this.responseText);
+					document.getElementById("demo").innerHTML = myObj.name;
+				}
+			};
+			xmlhttp.open("GET", "/360MoveData/Users/38004/Desktop/MyGitFile/Json学习/json_demo.txt", true);
+			xmlhttp.send();
+		</script>
+
+		<p>查看 JSON 文件数据
+			<a href="/360MoveData/Users/38004/Desktop/MyGitFile/Json学习/json_demo.txt" target="_blank">json_demo.txt</a>
+		</p>
+
+		<!-- 异常 
+			JSON 不能存储 Date 对象。
+			方法一、
+			如果你需要存储 Date 对象，需要将其转换为字符串。
+			之后再将字符串转换为 Date 对象。
+			方法二、启用 JSON.parse 的第二个参数 reviver，
+			一个转换结果的函数，对象的每个成员调用此函数。
+		-->
+		
+		
+	</body>
+
+</html>
