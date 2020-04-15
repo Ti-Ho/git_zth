@@ -1,0 +1,10 @@
+logging:
+  level:
+    com: trace
+  file:
+    path: ./
+  pattern:
+    # 指定在控制台输出的日志格式
+    console: "%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n"
+    # 指定在文件中日志输出的格式
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"

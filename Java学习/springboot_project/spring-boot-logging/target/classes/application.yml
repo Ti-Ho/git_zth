@@ -1,0 +1,12 @@
+logging:
+  level:
+    com: trace
+  file:
+    path: ./
+  pattern:
+    # ָ���ڿ���̨�������־��ʽ
+    console: "%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n"
+    # ָ�����ļ�����־����ĸ�ʽ
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+
+
