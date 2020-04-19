@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.pojo">
+    <resultMap type="Product" id="productBean">
+        <id column="pid" property="id"/>
+        <result column="pname" property="name"/>
+        <result column="price" property="price"/>
+
+        <!-- 多对一的联系 -->
+        <!-- property: 指的是属性名称
+            javaType: 指的是属性的类型
+            使用association进行多对一关系关联，指定表字段名称与对象属性名称的一一对应关系
+         -->
+        <association property="category" javaType="Category">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+        </association>
+    </resultMap>
+    <!-- 根据id查询Product，关联Category -->
+    <select id = "listProduct" resultMap="productBean">
+        select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname' from category_ c left join product_ p on c.id = p.cid
+    </select>
+    <select id="getProduct" resultMap="productBean">
+            select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname'
+                from category_ c
+                left join product_ p on c.id = p.cid
+            where p.id = #{id}
+        </select>
+
+
+    <!--动态SQL： Mybatis If -->
+    <!-- 如果没有传参数name,那么就查询所有，如果有name参数，那么就进行模糊查询。 -->
+    <select id="listProduct_if" resultType="Product">
+        select * from product_
+        <if test="name!=null">
+            where name like contat('%',#{name},'%')
+        </if>
+    </select>
+</mapper>
