@@ -38,4 +38,18 @@
             where name like contat('%',#{name},'%')
         </if>
     </select>
+
+    <!-- mybatis foreach -->
+    <select id="listProduct_foreach" resultType="Product">
+        SELECT * FROM product_ WHERE id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- mybatis bind -->
+    <select id="listProduct_bind" resultType="Product">
+        <bind name="likename" value="'%' + name + '%'" />
+        select * from   product_  where name like #{likename}
+    </select>
 </mapper>
