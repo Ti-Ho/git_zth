@@ -20,7 +20,8 @@
     </delete>
     
     <!--获取-->
-    <select id = "getCategory" parameterType="_int" resultType="Category">
+    <select id="getCategory" parameterType="_int" resultType="Category">
+        select * from   category_  where id= #{id}
     </select>
     
     <!--修改-->
@@ -116,7 +117,6 @@ List<Category> cs = session.selectList("listCategoryByIdAndName", params);
 
 ```xml
 <!-- Category.xml -->
-
 
 <!--       Mybatis一对多  （一个Category对多个Product）  -->
 <resultMap id="categoryBean" type="Category">
