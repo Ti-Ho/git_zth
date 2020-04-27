@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="260587f4-9897-4753-96d7-d150b4bacccc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/bean/Dept.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/bean/Users.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/controller/MybatisController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/mapper/DeptMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/mapper/UsersMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/MybatisRestfulApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/java/com/zth/springboot/MybatisRestfulApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../springboot_project/mybatis-restful-demo/src/main/resources/application.properties" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/src/main/java/com/zth/config/MyBatisPlusConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/src/test/java/com/zth/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/MyBatisPlus.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/MyBatisPlus.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/src/test/java/com/zth/WrapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/src/test/java/com/zth/WrapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/target/test-classes/com/zth/WrapperTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatis_plus_demo/target/test-classes/com/zth/WrapperTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_plus_project/mybatisplus_code_auto_generator/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,6 +84,8 @@
       <option name="presentableId" value="Default" />
       <updated>1587175068282</updated>
       <workItem from="1587175072157" duration="710000" />
+      <workItem from="1587607923794" duration="744000" />
+      <workItem from="1587636558046" duration="23000" />
     </task>
     <servers />
   </component>
@@ -94,7 +97,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
