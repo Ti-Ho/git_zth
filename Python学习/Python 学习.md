@@ -1,3 +1,18 @@
+```
+import pprint, pickle
+
+#使用pickle模块从文件中重构python对象
+pkl_file = open('data.pkl', 'rb')
+
+data1 = pickle.load(pkl_file)
+pprint.pprint(data1)
+
+data2 = pickle.load(pkl_file)
+pprint.pprint(data2)
+
+pkl_file.close()
+```
+
 # Python3 基础
 
 ## 1. 基础语法
@@ -1108,4 +1123,522 @@ repr((x, y, ('Google', 'Runoob'))) # "(32.5, 40000, ('Google', 'Runoob'))"
 ```
 
 * `str.format()`的基本使用 :
+
+  * ```python
+    print('{}的英文名字为{}.'.format('张天昊', 'Kai'))
+    # 输出: 张天昊的英文名字为Kai.
+    ```
+
+    括号里的字符会被format()中的参数替换.
+
+  * 在括号中的数字用于指向对象在`format()`中的位置
+
+  ```python
+  print('{1}的中文名字为{0}.'.format('张天昊', 'Kai'))
+  # Kai的中文名字为张天昊.
+  ```
+
+  * 在`format()`中使用了关键字参数,那它们的值会指向使用该名字的参数
+
+  ```python
+  print('{name}网址： {site}'.format(name='百度', site = 'www.baidu.com'))
+  ```
+
+  位置及关键字参数可以任意的结合:
   
+  ```python
+  print('站点列表 {0}, {1}, 和 {other}。'.format('Google', 'Runoob', other='Taobao'))
+  ```
+
+* 保留小数后三位
+
+```python
+import math
+print('常量PI 的值近似为{0:.3f}'.format(math.pi))
+```
+
+* 在`:`后传入一个整数,保证该域至少有这么多的宽度
+
+```python
+table = {'Google': 1, 'Runoob': 2, 'Taobao': 3}
+for name, number in table.items():
+    print('{0:10} ==> {1:10d}'.format(name, number))
+```
+
+```
+输出:
+Google     ==>          1
+Runoob     ==>          2
+Taobao     ==>          3
+```
+
+* 传入一个字典, 然后使用方括号 **[]** 来访问键值 :
+
+```python
+table = {'Google': 1, 'Runoob': 2, 'Taobao': 3}
+print('Runoob: {0[Runoob]:d}; Google: {0[Google]:d}; Taobao: {0[Taobao]:d}'.format(table))
+```
+
+
+
+> 读取键盘输入
+
+```python
+str = input("请输入：");
+print ("你输入的内容是: ", str)
+```
+
+
+
+> 读和写文件
+
+`open()`会返回一个file对象
+
+```python
+open(filename, mode)
+```
+
+* `filename`: 包含了访问的文件名称的字符串值
+* `mode`: 决定了打开文件的模式: 只读、写入、追加等，默认文件访问模式为只读(r)
+
+|    模式    |  r   |  r+  |  w   |  w+  |  a   |  a+  |
+| :--------: | :--: | :--: | :--: | :--: | :--: | :--: |
+|     读     |  +   |  +   |      |  +   |      |  +   |
+|     写     |      |  +   |  +   |  +   |  +   |  +   |
+|    创建    |      |      |  +   |  +   |  +   |  +   |
+|    覆盖    |      |      |  +   |  +   |      |      |
+| 指针在开始 |  +   |  +   |  +   |  +   |      |      |
+| 指针在结尾 |      |      |      |      |  +   |  +   |
+
+```python
+# 打开一个文件
+f = open("./1.txt", "w")
+f.write("Python 是一个非常好的语言。\n是的，的确非常好!!\n")
+f.close()
+```
+
+
+
+> 文件对象的方法
+
+* `f.read(size)`为读取一个文件的内容，调用该函数将读取一定数目的数据，若`size`被忽略或为负，那么该文件的**所有内容**都将被读取并返回。
+
+* `f.raedline()`会从文件中读取单独的一行。换行符为'\n'
+
+  若返回一个空字符串，说明已经读取到最后一行。
+
+* `f.readlines()`将返回该文件中包含的所有行。
+
+  如果设置可选参数 sizehint, 则读取指定长度的字节, 并且将这些字节按行分割。
+
+* `f.write(string)`将 string 写入到文件中, 然后返回写入的字符数。
+
+* `f.close()`
+
+
+
+> pickle模块
+
+python的pickle模块实现了基本的数据序列和反序列化。
+
+通过pickle模块的序列化操作能够将程序中运行的对象信息保存到文件中去，永久存储。
+
+通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。
+
+基本接口：
+
+```python
+pickle.dump(obj, file, [,protocol])
+```
+
+有了 pickle 这个对象, 就能对 file 以读取的形式打开:
+
+```python
+x = pickle.load(file)
+```
+
+
+
+```python
+import pickle
+# 使用pickle模块将数据对象保存到文件
+data1 = {'a': [1, 2.0, 3, 4+6j],
+         'b': ('string', u'Unicode string'),
+         'c': None}
+
+selfref_list = [1, 2, 3]
+selfref_list.append(selfref_list)
+
+output = open('data.pkl','wb')
+
+pickle.dump(data1, output)
+pickle.dump(selfref_list, output, -1)
+output.close()
+```
+
+```python
+import pprint, pickle
+
+#使用pickle模块从文件中重构python对象
+pkl_file = open('data.pkl', 'rb')
+
+data1 = pickle.load(pkl_file)
+pprint.pprint(data1)
+
+data2 = pickle.load(pkl_file)
+pprint.pprint(data2)
+
+pkl_file.close()
+```
+
+
+
+## 9. 错误和异常
+
+> 异常处理
+
+* `try/except`异常捕捉可以使用`try/except`语句。
+
+```python
+try:
+   	执行代码
+except:
+    发生异常时执行的代码
+```
+
+```python
+while True:
+    try:
+        x = int(input("请输入一个数字: "))
+        break
+    except ValueError:
+        print("您输入的不是数字，请再次尝试输入！")
+```
+
+一个except子句可以同时处理多个异常，这些异常将被放在一个括号里成为一个元组，例如:
+
+```python
+except (RuntimeError, TypeError, NameError):
+    pass
+```
+
+最后一个except子句可以忽略异常的名称，它将被当作通配符使用。你可以使用这种方法打印一个错误信息，然后再次把异常抛出。
+
+```python
+import sys
+ 
+try:
+    f = open('myfile.txt')
+    s = f.readline()
+    i = int(s.strip())
+except OSError as err:
+    print("OS error: {0}".format(err))
+except ValueError:
+    print("Could not convert data to an integer.")
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+    raise
+```
+
+
+
+* try/except...else
+
+**try/except** 语句还有一个可选的 **else** 子句，如果使用这个子句，那么必须放在所有的 except 子句之后。
+
+else 子句将在 try 子句没有发生任何异常的时候执行。
+
+```python
+try:
+   	执行代码
+except:
+    发生异常时执行的代码
+else:
+    没有异常时执行的代码
+```
+
+
+
+* try-finally
+
+```python
+try:
+   	执行代码
+except:
+    发生异常时执行的代码
+else:
+    没有异常时执行的代码
+finally:
+    不管有没有异常都会执行的代码
+```
+
+
+
+> 抛出异常 `raise`
+
+raise语法格式如下：
+
+```python
+raise [Exception [, args [, traceback]]]
+```
+
+以下实例如果 x 大于 5 就触发异常:
+
+```python
+x = 10
+if x > 5:
+    raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
+```
+
+
+
+> 用户自定义异常
+
+可以通过创建一个新的异常类来拥有自己的异常。异常类继承自 Exception 类，可以直接继承，或者间接继承，例如:
+
+```python
+class MyError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+try:
+    raise  MyError(2*2)
+except MyError as e:
+    print('My exception occurred, value:', e.value)
+```
+
+```
+输出：
+My exception occurred, value: 4
+```
+
+
+
+## 10.python3面向对象
+
+> 类定义
+
+```python
+class ClassName:
+    <statement-1>
+    .
+    .
+    .
+    <statement-N>
+```
+
+
+
+> 类对象
+
+类对象支持两种操作：属性引用和实例化
+
+属性引用使用和 Python 中所有的属性引用一样的标准语法：**obj.name**。
+
+```python
+class MyClass:
+    """一个简单的类实例"""
+    i = 12345
+    def f():
+        return 'hello world'
+
+# 实例化类
+x = MyClass
+
+# 访问类属性和方法
+print("MyClass 类的属性 i 为：", x.i)
+print("MyClass 类的方法 f 输出为：", x.f())
+```
+
+```
+输出：
+MyClass 类的属性 i 为： 12345
+MyClass 类的方法 f 输出为： hello world
+```
+
+
+
+* 类有一个名为`__init--()`的特殊方法（构造方法），该方法在类实例化时会自动调用
+
+```python
+def __init__(self):
+    self.data = []
+```
+
+类定义了 __init__() 方法，类的实例化操作会自动调用 __init__() 方法。如下实例化类 MyClass，对应的 __init__() 方法就会被调用:
+
+```
+x = MyClass()
+```
+
+```python
+# 带参数的构造函数
+class Complex:
+    def __init__(self, realpart, imagpart):
+        self.r = realpart
+        self.i = imagpart
+x = Complex(3.0, -4.5)
+print(x.r, x.i)   # 输出结果：3.0 -4.5
+```
+
+**self代表类的实例，而非类**
+
+类的方法与普通函数的区别：必须有一个额外的**第一个参数名称**, 按照惯例它的名称是 self。
+
+
+
+> 继承
+
+派生类的定义：
+
+```python
+class DerivedClassName(BaseClassName1):
+    <statement-1>
+    .
+    .
+    .
+    <statement-N>
+```
+
+```python
+#类定义
+class people:
+    #定义基本属性
+    name = ''
+    age = 0
+    #定义私有属性,私有属性在类外部无法直接进行访问
+    __weight = 0
+    #定义构造方法
+    def __init__(self,n,a,w):
+        self.name = n
+        self.age = a
+        self.__weight = w
+    def speak(self):
+        print("%s 说: 我 %d 岁。" %(self.name,self.age))
+
+#单继承示例
+class student(people):
+    grade = ''
+    def __init__(self,n,a,w,g):
+        #调用父类的构函
+        people.__init__(self,n,a,w)
+        self.grade = g
+    #覆写父类的方法
+    def speak(self):
+        print("%s 说: 我 %d 岁了，我在读 %d 年级"%(self.name,self.age,self.grade))
+
+s = student('ken',10,60,3)
+s.speak()
+```
+
+
+
+> 多继承
+
+```python
+class DerivedClassName(Base1, Base2, Base3):
+    <statement-1>
+    .
+    .
+    .
+    <statement-N>
+```
+
+
+
+> 方法重写
+
+```python
+class Parent:        # 定义父类
+   def myMethod(self):
+      print ('调用父类方法')
+ 
+class Child(Parent): # 定义子类
+   def myMethod(self):
+      print ('调用子类方法')
+ 
+c = Child()          # 子类实例
+c.myMethod()         # 子类调用重写方法
+super(Child,c).myMethod() #用子类对象调用父类已被覆盖的方法
+```
+
+`super() 函数`是用于调用父类(超类)的一个方法。
+
+
+
+> 类属性与方法
+
+* **类的私有属性**
+
+`private_attrs`: 两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问。在类内部的方法中使用时 `self.__private_attrs`。
+
+> 类的方法
+
+在类的内部，使用 def 关键字来定义一个方法，与一般函数定义不同，类方法必须包含参数 **self**，且为第一个参数，**self** 代表的是类的实例。
+
+**self** 的名字并不是规定死的，也可以使用 **this**，但是最好还是按照约定是用 **self**。
+
+> 类的私有方法
+
+**__private_method**：两个下划线开头，声明该方法为私有方法，只能在类的内部调用 ，不能在类的外部调用。**self.__private_methods**。
+
+
+
+```python
+# 类的私有属性实例如下：
+class JustCounter:
+    __secretCount = 0  # 私有变量
+    publicCount = 0    # 公开变量
+ 
+    def count(self):
+        self.__secretCount += 1
+        self.publicCount += 1
+        print (self.__secretCount)
+ 
+counter = JustCounter()
+counter.count()
+counter.count()
+print (counter.publicCount)
+print (counter.__secretCount)  # 报错，实例不能访问私有变量
+```
+
+> 类的专有方法：
+
+- **__init__ :** 构造函数，在生成对象时调用
+- **__del__ :** 析构函数，释放对象时使用
+- **__repr__ :** 打印，转换
+- **__setitem__ :** 按照索引赋值
+- **__getitem__:** 按照索引获取值
+- **__len__:** 获得长度
+- **__cmp__:** 比较运算
+- **__call__:** 函数调用
+- **__add__:** 加运算
+- **__sub__:** 减运算
+- **__mul__:** 乘运算
+- **__truediv__:** 除运算
+- **__mod__:** 求余运算
+- **__pow__:** 乘方
+
+> 运算符重载
+
+重载加号：
+
+```python
+class Vector:
+   def __init__(self, a, b):
+      self.a = a
+      self.b = b
+ 
+   def __str__(self):
+      return 'Vector (%d, %d)' % (self.a, self.b)
+   
+   def __add__(self,other):
+      return Vector(self.a + other.a, self.b + other.b)
+ 
+v1 = Vector(2,10)
+v2 = Vector(5,-2)
+print (v1 + v2)
+```
+
