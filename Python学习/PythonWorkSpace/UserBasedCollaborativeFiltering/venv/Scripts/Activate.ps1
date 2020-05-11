@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="D:\360MoveData\Users\38004\Desktop\MyGitFile\Python学习\PythonWorkSpace\PythonLearning\venv"
+$env:VIRTUAL_ENV="D:\360MoveData\Users\38004\Desktop\MyGitFile\Python学习\PythonWorkSpace\UserBasedCollaborativeFiltering\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

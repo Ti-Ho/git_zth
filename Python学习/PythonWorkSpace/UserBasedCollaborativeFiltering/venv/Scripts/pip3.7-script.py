@@ -1,4 +1,4 @@
-#!D:\360MoveData\Users\38004\Desktop\MyGitFile\Pythonѧϰ\PythonWorkSpace\PythonLearning\venv\Scripts\python.exe -x
+#!D:\360MoveData\Users\38004\Desktop\MyGitFile\Pythonѧϰ\PythonWorkSpace\UserBasedCollaborativeFiltering\venv\Scripts\python.exe -x
 # EASY-INSTALL-ENTRY-SCRIPT: 'pip==19.0.3','console_scripts','pip3.7'
 __requires__ = 'pip==19.0.3'
 import re
