@@ -1642,3 +1642,99 @@ v2 = Vector(5,-2)
 print (v1 + v2)
 ```
 
+
+
+# Python3 JSON 数据解析
+
+Python3 中可以使用JSON数据进行编解码，它包含了两个函数：
+`json.dumps()`:对数据进行编码
+
+`json.loads()`:对数据进行解码
+
+## 1. Python编码为JSON类型转换对应表
+
+| Python                                 | JSON   |
+| :------------------------------------- | :----- |
+| dict                                   | object |
+| list, tuple                            | array  |
+| str                                    | string |
+| int, float, int- & float-derived Enums | number |
+| True                                   | true   |
+| False                                  | false  |
+| None                                   | null   |
+
+## 2. JSON 解码为 Python 类型转换对应表
+
+| JSON          | Python |
+| :------------ | :----- |
+| object        | dict   |
+| array         | list   |
+| string        | str    |
+| number (int)  | int    |
+| number (real) | float  |
+| true          | True   |
+| false         | False  |
+| null          | None   |
+
+## 3. json.dumps 与 json.loads 实例
+
+ 对数据编码 `json.dumps()：python -> JSON`
+
+对数据解码 `json.loads(): JSON -> python`
+
+```python
+import json
+
+# 对数据编码 json.dumps()：python -> JSON
+def testdumps():
+    data = {
+        'no': 1,
+        'name': 'Zth',
+        'age': 21
+    }
+    json_str = json.dumps(data)
+    print("Python 原始数据：", repr(data))
+    print("JSON 对象：", json_str)
+    return json_str
+
+
+#  对数据解码 json.loads(): JSON -> python
+def testloads(json_str):
+    python_data = json.loads(json_str)
+    print("转换后的Python数据: ", python_data)
+    print("python_data['name']: ", python_data['name'])
+    print("python_data['age']: ", python_data['age'])
+
+# 调用
+json_str = testdumps()
+testloads(json_str)
+```
+
+输出：
+
+```
+Python 原始数据： {'no': 1, 'name': 'Zth', 'age': 21}
+JSON 对象： {"no": 1, "name": "Zth", "age": 21}
+转换后的Python数据:  {'no': 1, 'name': 'Zth', 'age': 21}
+python_data['name']:  Zth
+python_data['age']:  21
+```
+
+
+
+## 4. 处理文件
+
+```python
+# 写入 JSON 数据
+with open('data.json', 'w') as f:
+    json.dump(data, f)
+ 
+# 读取数据
+with open('data.json', 'r') as f:
+    data = json.load(f)
+```
+
+
+
+# Python简单的get和post请求
+
