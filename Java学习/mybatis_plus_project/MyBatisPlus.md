@@ -4,7 +4,7 @@
 
 * MyBatisPlus可以节省我们大量的工作时间，所有的CRUD代码它都可以自动化完成。
 
-* **简化MyBatis**: MyBatis是一个MyBatis的增强工具，再MyBatis的基础上只做增强不做改变。
+* **简化MyBatis**: MyBatis-Plus是一个MyBatis的增强工具，在MyBatis的基础上只做增强不做改变。
 * **强大的CRUD操作**，以后简单的CRUD操作，它不需要自己编写了
 * **内置代码生成器**
 
@@ -564,18 +564,18 @@ AutoGenerator 是 MyBatis-Plus 的代码生成器，通过 AutoGenerator 可以�
 package com.zth;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-        import com.baomidou.mybatisplus.annotation.FieldFill;
-        import com.baomidou.mybatisplus.annotation.IdType;
-        import com.baomidou.mybatisplus.generator.AutoGenerator;
-        import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-        import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-        import com.baomidou.mybatisplus.generator.config.PackageConfig;
-        import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-        import com.baomidou.mybatisplus.generator.config.po.TableFill;
-        import com.baomidou.mybatisplus.generator.config.rules.DateType;
-        import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * @author Kai

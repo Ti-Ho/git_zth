@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eeb70e58-dc16-4655-a6a9-61ad695c7955" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/src/main/java/com/zth/config/MyBatisPlusConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/src/test/java/com/zth/CodeGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MyBatisPlus.md" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatisPlus.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/zth/WrapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/zth/WrapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/zth/WrapperTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/zth/WrapperTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../mybatisplus_code_auto_generator/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../mybatis_project/mabatis_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../mybatis_project/mabatis_demo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Python学习/Python 学习.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Python学习/Python 学习.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -216,6 +210,7 @@
       <workItem from="1587555411845" duration="15583000" />
       <workItem from="1587634579907" duration="2845000" />
       <workItem from="1587648871076" duration="372000" />
+      <workItem from="1589896467133" duration="297000" />
     </task>
     <servers />
   </component>
