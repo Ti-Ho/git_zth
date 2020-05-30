@@ -1460,7 +1460,7 @@ MyClass 类的方法 f 输出为： hello world
 
 
 
-* 类有一个名为`__init--()`的特殊方法（构造方法），该方法在类实例化时会自动调用
+* 类有一个名为`__init__()`的特殊方法（构造方法），该方法在类实例化时会自动调用
 
 ```python
 def __init__(self):
@@ -1757,7 +1757,376 @@ response = requests.post("http://localhost:8080/cost", data=json.dumps(data), he
 print(response.text)
 ```
 
-# Python 数据库连接
+
+
+# Python3 MySQL
+
+## mysql-connector驱动
+
+如何使用`mysql-connector`来连接使用MySQL, `mysql-connector`是`MySQL`官方提供的**驱动器**
+
+安装模块:`pip install mysql-connector`
+
+导入模块:`import mysql.connector`
+
+### 在PyCharm中的安装方式
+
+![image-20200521102257948](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200521102257948.png)
+
+![image-20200521102427784](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200521102427784.png)
+
+### 创建数据库
+
+```python
+# 创建数据库连接
+mydb = mysql.connector.connect(
+    host = "localhost", # 数据库主机地址
+    user = "root",      # 数据库用户名
+    passwd=""           # 数据库密码
+)
+```
+
+```python
+# 创建数据库
+mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE zth_db")
+```
+
+```python
+# 直接连接数据库
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="123456",
+  database="runoob_db"
+)
+```
+
+### 创建数据表
+
+```python
+mycursor.execute("CREATE TABLE sites (name VARCHAR(255), url VARCHAR(255))")
+```
+
+### 主键设置
+
+```python
+mycursor.execute("ALTER TABLE sites ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY")
+```
+
+### 插入数据
+
+```python
+import mysql.connector
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="",
+    database="zth_db"
+)
+mycursor = mydb.cursor()
+
+# 插入一条记录
+sql = "INSERT INTO sites (name, url) VALUES (%s, %s)"
+val = ("zth", "www.kai.com")
+mycursor.execute(sql, val)
+
+mydb.commit() # 数据表内容有更新，必须使用到该语句
+
+print(mycursor.rowcount, "记录插入成功。")
+```
+
+```python
+# 批量插入
+sql = "INSERT INTO sites (name, url) VALUES (%s, %s)"
+val = [
+  ('Google', 'https://www.google.com'),
+  ('Github', 'https://www.github.com'),
+  ('Taobao', 'https://www.taobao.com'),
+  ('stackoverflow', 'https://www.stackoverflow.com/')
+]
+ 
+mycursor.executemany(sql, val)
+```
+
+在数据记录插入后，获取该记录的 ID ，可以使用以下代码：
+
+```python
+mydb.commit()
+print("1 条记录已插入, ID:", mycursor.lastrowid)
+```
+
+
+
+### 查询数据
+
+```python
+mycursor.execute("SELECT * FROM sites")
+
+myresult = mycursor.fetchall() # fetchall() 获取所有记录
+
+for x in myresult:
+    print(x)
+```
+
+读一条数据:
+
+```python
+mycursor.execute("SELECT * FROM sites")
+myresult = mycursor.fetchone()
+```
+
+
+
+### 删除记录
+
+```python
+sql = "DELETE FROM sites WHERE name = 'stackoverflow'"
+mycursor.execute(sql)
+mydb.commit()
+```
+
+为了防止数据库查询发生 SQL 注入的攻击，我们可以使用 **%s** 占位符来转义删除语句的条件：
+
+```python
+sql = "DELETE FROM sites WHERE name = %s"
+na = ("stackoverflow", )
+ 
+mycursor.execute(sql, na)
+ 
+mydb.commit()
+```
+
+
+
+### 更新表数据
+
+```python
+sql = "UPDATE sites SET name = 'ZH' WHERE name = 'Zhihu'"
+ 
+mycursor.execute(sql)
+ 
+mydb.commit()
+```
+
+
+
+### 删除表
+
+```python
+sql = "DROP TABLE IF EXISTS sites"  # 删除数据表 sites
+ 
+mycursor.execute(sql)
+```
+
+
+
+## PyMySQL 驱动
+
+安装:`pip3 install PyMySQL`
+
+### 数据库连接
+
+```python
+import pymysql
+
+# 打开数据库连接
+db = pymysql.connect("localhost","root","","zth_db")  # (主机名,用户名,数据库密码,数据库名)
+
+# 使用 cursor() 方法创建一个游标对象 cursor
+cursor = db.cursor()
+
+# 使用 execute()  方法执行 SQL 查询
+cursor.execute("SELECT VERSION()")
+
+# 使用 fetchone() 方法获取单条数据.
+data = cursor.fetchone()
+
+print("Database version : %s " % data)
+
+# 关闭数据库连接
+db.close()
+```
+
+输出:`Database version : 5.5.62 `
+
+
+
+### 创建数据库表
+
+```python
+import pymysql
+
+# 打开数据库连接
+db = pymysql.connect("localhost", "root", "", "zth_db")
+
+# 使用 cursor() 方法创建一个游标对象 cursor
+cursor = db.cursor()
+
+# 使用 execute() 方法执行 SQL，如果表存在则删除
+cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
+
+# 使用预处理语句创建表
+sql = """CREATE TABLE EMPLOYEE (
+         FIRST_NAME  CHAR(20) NOT NULL,
+         LAST_NAME  CHAR(20),
+         AGE INT,  
+         SEX CHAR(1),
+         INCOME FLOAT )"""
+
+cursor.execute(sql)
+
+# 关闭数据库连接
+db.close()
+```
+
+
+
+### 数据库插入操作
+
+```python
+# SQL 插入语句
+sql = """INSERT INTO EMPLOYEE(FIRST_NAME,
+         LAST_NAME, AGE, SEX, INCOME)
+         VALUES ('Mac', 'Mohan', 20, 'M', 2000)"""
+try:
+    # 执行sql语句
+    cursor.execute(sql)
+    # 提交到数据库执行
+    db.commit()
+except:
+    # 如果发生错误则回滚
+    db.rollback()
+
+# 关闭数据库连接
+db.close()
+```
+
+或:
+
+```python
+# SQL 插入语句
+sql = "INSERT INTO EMPLOYEE(FIRST_NAME, \
+       LAST_NAME, AGE, SEX, INCOME) \
+       VALUES ('%s', '%s',  %s,  '%s',  %s)" % \
+       ('Mac', 'Mohan', 20, 'M', 2000)
+try:
+   # 执行sql语句
+   cursor.execute(sql)
+   # 执行sql语句
+   db.commit()
+except:
+   # 发生错误时回滚
+   db.rollback()
+ 
+# 关闭数据库连接
+db.close()
+```
+
+
+
+### 数据库查询操作
+
+Python查询Mysql使用 fetchone() 方法获取单条数据, 使用fetchall() 方法获取多条数据。
+
+- **fetchone():** 该方法获取下一个查询结果集。结果集是一个对象
+- **fetchall():** 接收全部的返回结果行.
+- **rowcount:** 这是一个只读属性，并返回执行execute()方法后影响的行数。
+
+```python
+import pymysql
+
+# 打开数据库连接
+db = pymysql.connect("localhost", "root", "", "zth_db")
+
+# 使用 cursor() 方法创建一个游标对象 cursor
+cursor = db.cursor()
+
+# SQL 查询语句
+sql = "SELECT * FROM EMPLOYEE \
+      WHERE INCOME > %s" % (1000)
+try:
+    # 执行 SQL 语句
+    cursor.execute(sql)
+    # 获取所有记录列表
+    results = cursor.fetchall()
+    for row in results:
+        fname = row[0]
+        lname = row[1]
+        age = row[2]
+        sex = row[3]
+        income = row[4]
+        # 打印结果
+        print("fname=%s, lname=%s, age=%s, sex=%s, income=%s" % \
+              (fname, lname, age, sex, income))
+except:
+    print("Error: unable to fetch data")
+
+# 关闭数据库连接
+db.close()
+```
+
+
+
+### 数据库更新操作
+
+```python
+# SQL 更新语句
+sql = "UPDATE EMPLOYEE SET AGE = AGE + 1 WHERE SEX = '%c'" % ('M')
+try:
+   # 执行SQL语句
+   cursor.execute(sql)
+   # 提交到数据库执行
+   db.commit()
+except:
+   # 发生错误时回滚
+   db.rollback()
+```
+
+
+
+###　删除操作
+
+```python
+# SQL 删除语句
+sql = "DELETE FROM EMPLOYEE WHERE AGE > %s" % (20)
+try:
+   # 执行SQL语句
+   cursor.execute(sql)
+   # 提交修改
+   db.commit()
+except:
+   # 发生错误时回滚
+   db.rollback()
+```
+
+
+
+### 执行事务
+
+事务机制可以确保数据一致性。
+
+对于支持事务的数据库， 在Python数据库编程中，当游标建立之时，就自动开始了一个隐形的数据库事务。
+
+`commit()`方法游标的所有更新操作，`rollback()`方法回滚当前游标的所有操作。每一个方法都开始了一个新的事务。
+
+```python
+# SQL删除记录语句
+sql = "DELETE FROM EMPLOYEE WHERE AGE > %s" % (20)
+try:
+   # 执行SQL语句
+   cursor.execute(sql)
+   # 向数据库提交
+   db.commit()
+except:
+   # 发生错误时回滚
+   db.rollback()
+```
+
+
+
+## Python 数据库连接示例
 
 ```python
 import pymysql
@@ -1845,4 +2214,6 @@ print('*'*40)
 clearTable()
 outputData()
 ```
+
+
 

@@ -1,3 +1,5 @@
+
+
 # Latex 学习
 
 ## 简单Latex例子及效果截图
@@ -192,5 +194,29 @@ c & d\\
 
 ![image-20200514233326215](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200514233326215.png)
 
+## 例子
 
+* 粗体向量
+
+$$
+\boldsymbol y = \phi(\boldsymbol x)
+$$
+
+* 远小于、远大于
+
+$$
+	m \ll n , x \gg y
+$$
+
+* 绝对值
+
+$$
+\left|x\right|
+$$
+
+* 求和
+
+$$
+\left | \left | \boldsymbol x \right | \right|_p = (\sum_{i=1}^n\left|x_i\right|^p)^{\frac{1}{p}}
+$$
 
