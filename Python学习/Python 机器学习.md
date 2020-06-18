@@ -1077,7 +1077,7 @@ graph.view()
 
 ---
 
-## SVM支持向量机（support vector machine）
+## SVM支持向量机
 
 2012年以前SVM占主流、占统治地位，2012年之后Deep Learning主流，效果好于SVM
 
@@ -1251,3 +1251,1062 @@ $$
 函数K(x,z)满足条件 K(x,z) = \phi(x)·\phi(z) \\
 K(x,z)为核函数 \ \ \ \ \phi(x)为映射函数  \ \ \  \phi(x)·\phi(z)为\phi(x)和\phi(z)的内积
 $$
+
+
+### 四、二分类支持向量机SVM实例
+
+> 数据：
+
+```
+属性1			属性2		标签
+-0.017612   14.053064   0
+-1.395634   4.662541    1
+-0.752157   6.538620    0
+-1.322371   7.152853    0
+0.423363    11.054677   0
+.........................
+0.761349    10.693862   0
+-2.168791   0.143632    1
+1.388610    9.341997    0
+0.317029    14.739025   0
+```
+
+> 整体代码：
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time : 2020/6/8 18:23
+# @Author : Kai
+# @File : 二分类.py
+# @Software: PyCharm
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn import metrics
+
+
+def my_svm():
+    #1. 数据预处理
+    data = pd.read_table(r'./testSet.txt', header=None, delim_whitespace=True)
+
+    X = np.array(data.loc[:][[0, 1]])  # 特征值
+    Y = np.array(data[2]) # 标签
+    Y = np.where(Y == 1, 1, -1) # 标签分为正例和负例
+
+    #2. 预测
+    x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.3)
+    print("训练集样本大小：", x_train.shape)
+    print("训练集标签大小：", y_train.shape)
+    print("测试集样本大小：", x_test.shape)
+    print("测试集标签大小：", y_test.shape)
+    svm_model = SVC(kernel="linear", C = 1.0)
+    svm_model.fit(X, Y)
+    score = svm_model.score(x_test, y_test)
+    print("\n模型测试集准确率为：", score)
+
+    # 评价模型：准确率、召回率、f1-score、精度
+    y_predict = svm_model.predict(x_test)
+    result = metrics.classification_report(y_test, y_predict)
+    print(result)
+
+    # 单个预测
+    # pre_result = svm_model.predict([[1.25, 0.26]])
+    # print(pre_result)
+
+    #3. 选择三种不同的核方法训练SVM并进行可视化
+    #   linear:线性核函数
+    #   poly:多项式核函数
+    #   rbf: 高斯核函数
+    x_min = X[:, 0].min()
+    x_max = X[:, 0].max()
+    y_min = X[:, 1].min()
+    y_max = X[:, 1].max()
+    plt.figure(figsize=(15, 15))
+    for fig_num, kernel in enumerate(('linear', 'poly', 'rbf')):
+        # 训练SVM
+        svm_ = SVC(kernel=kernel)
+        svm_.fit(X, Y)
+
+        # 输出支持向量
+        print("%s_SVM支持向量个数：%d" % (kernel, len(svm_.support_vectors_)))
+        print(svm_.support_vectors_)
+
+        # 可视化
+        plt.subplot(222 + fig_num)
+        plt.scatter(x = X[Y == 1, 0], y = X[Y == 1, 1],
+                    s = 30, marker = 'o', color = 'yellow', zorder = 10)
+        plt.scatter(x = X[Y == -1, 0], y = X[Y == -1, 1],
+                    s = 30, marker = 'x', color = 'blue', zorder = 10)
+        plt.scatter(x = [x[0] for x in svm_.support_vectors_], y = [x[1] for x in svm_.support_vectors_], s = 80, facecolors='none', zorder = 10)
+        plt.title(kernel)
+        plt.xlabel('support vectors ' + str(len(svm_.support_vectors_)))
+        plt.xticks([])
+        plt.yticks([])
+        plt.xlim(x_min, x_max)
+        plt.ylim(y_min, y_max)
+        XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
+        Z = svm_.decision_function(np.c_[XX.ravel(), YY.ravel()])
+        Z = Z.reshape(XX.shape)
+        plt.pcolormesh(XX, YY, Z > 0, cmap=plt.cm.Paired)
+        plt.contour(XX, YY, Z, colors=['black', 'k', 'white'], linestyles=['--', '-', '--'], levels=[-.5, 0, .5])
+
+    # plot data
+    plt.subplot(221)
+    plt.title('data')
+    plt.scatter(x=X[Y == 1, 0], y=X[Y == 1, 1],
+                s=30, marker='o', color='red', zorder=10)
+    plt.scatter(x=X[Y == -1, 0], y=X[Y == -1, 1],
+                s=30, marker='x', color='blue', zorder=10)
+    plt.xticks([])
+    plt.yticks([])
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)
+
+    plt.show()
+
+if __name__ == '__main__':
+    my_svm()
+```
+
+> “预测 准确率+ 评价模型：准确率、召回率、f1-score、精度”输出结果：
+
+部分相关代码：
+
+```python
+#2. 预测
+x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.3)
+print("训练集样本大小：", x_train.shape)
+print("训练集标签大小：", y_train.shape)
+print("测试集样本大小：", x_test.shape)
+print("测试集标签大小：", y_test.shape)
+svm_model = SVC(kernel="linear", C = 1.0)
+svm_model.fit(X, Y)
+score = svm_model.score(x_test, y_test)
+print("\n模型测试集准确率为：", score)
+
+# 评价模型：准确率、召回率、f1-score、精度
+y_predict = svm_model.predict(x_test)
+result = metrics.classification_report(y_test, y_predict)
+print(result)
+```
+
+输出：
+
+```
+训练集样本大小： (70, 2)
+训练集标签大小： (70,)
+测试集样本大小： (30, 2)
+测试集标签大小： (30,)
+
+模型测试集准确率为： 0.9666666666666667
+              precision    recall  f1-score   support
+
+          -1       0.92      1.00      0.96        11
+           1       1.00      0.95      0.97        19
+
+    accuracy                           0.97        30
+   macro avg       0.96      0.97      0.96        30
+weighted avg       0.97      0.97      0.97        30
+```
+
+
+
+* 单个数据预测结果
+
+```python
+# 单个预测
+    pre_result = svm_model.predict([[1.25, 0.26]])
+    print(pre_result)
+    
+------输出------
+[1]  # 即”正例“
+```
+
+
+
+> 输出支持向量
+
+```python
+# 输出支持向量
+print("%s_SVM支持向量个数：%d" % (kernel, len(svm_.support_vectors_)))
+print(svm_.support_vectors_)
+```
+
+* 核方法：linear
+
+  ```
+  linear_SVM支持向量个数：12
+  [[-0.752157  6.53862 ]
+   [-1.322371  7.152853]
+   [-0.397822  8.058397]
+   [ 1.015399  7.571882]
+   [-1.510047  6.061992]
+   [ 1.38861   9.341997]
+   [ 0.406704  7.067335]
+   [-2.46015   6.866805]
+   [-0.566606  5.749003]
+   [ 0.556921  8.294984]
+   [ 0.099671  6.835839]
+   [ 1.785928  7.718645]]
+  ```
+
+* 核方法：poly
+
+  ```
+  poly_SVM支持向量个数：15
+  [[-0.752157  6.53862 ]
+   [-1.322371  7.152853]
+   [ 0.184992  8.721488]
+   [-0.397822  8.058397]
+   [ 1.015399  7.571882]
+   [-1.510047  6.061992]
+   [ 1.38861   9.341997]
+   [ 0.406704  7.067335]
+   [-2.46015   6.866805]
+   [ 0.850433  6.920334]
+   [-0.024205  6.151823]
+   [ 0.556921  8.294984]
+   [ 0.099671  6.835839]
+   [ 1.785928  7.718645]
+   [ 3.01015   8.401766]]
+  ```
+
+* 核方法：rbf
+
+  ```
+  rbf_SVM支持向量个数：26
+  [[-7.521570e-01  6.538620e+00]
+   [-1.322371e+00  7.152853e+00]
+   [ 1.217916e+00  9.597015e+00]
+   [-7.339280e-01  9.098687e+00]
+   [ 1.416614e+00  9.619232e+00]
+   [ 4.705750e-01  9.332488e+00]
+   [ 1.849920e-01  8.721488e+00]
+   [-3.978220e-01  8.058397e+00]
+   [-7.194000e-03  9.075792e+00]
+   [ 1.015399e+00  7.571882e+00]
+   [-1.510047e+00  6.061992e+00]
+   [ 1.388610e+00  9.341997e+00]
+   [ 4.067040e-01  7.067335e+00]
+   [-2.460150e+00  6.866805e+00]
+   [ 8.504330e-01  6.920334e+00]
+   [-5.666060e-01  5.749003e+00]
+   [-2.420500e-02  6.151823e+00]
+   [-3.642001e+00 -1.618087e+00]
+   [ 5.569210e-01  8.294984e+00]
+   [ 1.042222e+00  6.105155e+00]
+   [ 2.294560e-01  5.921938e+00]
+   [ 9.967100e-02  6.835839e+00]
+   [ 1.785928e+00  7.718645e+00]
+   [ 2.530777e+00  6.476801e+00]
+   [-1.076637e+00 -3.181888e+00]
+   [ 3.010150e+00  8.401766e+00]]
+  ```
+
+* 可视化
+
+  ```python
+  for fig_num, kernel in enumerate(('linear', 'poly', 'rbf')):
+      # 训练SVM
+      svm_ = SVC(kernel=kernel)
+      svm_.fit(X, Y)
+  
+      # 可视化
+      plt.subplot(222 + fig_num)
+      plt.scatter(x = X[Y == 1, 0], y = X[Y == 1, 1],
+                  s = 30, marker = 'o', color = 'yellow', zorder = 10)
+      plt.scatter(x = X[Y == -1, 0], y = X[Y == -1, 1],
+                  s = 30, marker = 'x', color = 'blue', zorder = 10)
+      plt.scatter(x = [x[0] for x in svm_.support_vectors_], y = [x[1] for x in svm_.support_vectors_], s = 80, facecolors='none', zorder = 10)
+      plt.title(kernel)
+      plt.xlabel('support vectors ' + str(len(svm_.support_vectors_)))
+      plt.xticks([])
+      plt.yticks([])
+      plt.xlim(x_min, x_max)
+      plt.ylim(y_min, y_max)
+      XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
+      Z = svm_.decision_function(np.c_[XX.ravel(), YY.ravel()])
+      Z = Z.reshape(XX.shape)
+      plt.pcolormesh(XX, YY, Z > 0, cmap=plt.cm.Paired)
+      plt.contour(XX, YY, Z, colors=['black', 'k', 'white'], linestyles=['--', '-', '--'], levels=[-.5, 0, .5])
+  
+  # plot data
+  plt.subplot(221)
+  plt.title('data')
+  plt.scatter(x=X[Y == 1, 0], y=X[Y == 1, 1],
+              s=30, marker='o', color='red', zorder=10)
+  plt.scatter(x=X[Y == -1, 0], y=X[Y == -1, 1],
+              s=30, marker='x', color='blue', zorder=10)
+  plt.xticks([])
+  plt.yticks([])
+  plt.xlim(x_min, x_max)
+  plt.ylim(y_min, y_max)
+  
+  plt.show()
+  ```
+
+  可视化图像：<img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200608215155354.png" alt="image-20200608215155354" style="zoom: 50%;" />
+
+  
+
+
+
+> 设置不同软间隔输出预测结果
+
+通过修改惩罚参数`C`值，修改软间隔 (使用线性模型)
+
+```python
+svm_model = SVC(kernel="linear", C = 1.0)
+```
+
+* C=0.1
+
+  预测结果：
+
+  ```
+  模型测试集准确率为： 0.9333333333333333
+                precision    recall  f1-score   support
+  
+            -1       0.94      0.94      0.94        18
+             1       0.92      0.92      0.92        12
+  
+      accuracy                           0.93        30
+     macro avg       0.93      0.93      0.93        30
+  weighted avg       0.93      0.93      0.93        30
+  ```
+
+  支持向量个数：18
+
+* C=0.5
+
+  预测结果：
+
+  ```
+  模型测试集准确率为： 0.9666666666666667
+                precision    recall  f1-score   support
+  
+            -1       0.94      1.00      0.97        15
+             1       1.00      0.93      0.97        15
+  
+      accuracy                           0.97        30
+     macro avg       0.97      0.97      0.97        30
+  weighted avg       0.97      0.97      0.97        30
+  ```
+
+  支持向量个数：13
+
+* C=1
+
+  预测结果：
+
+  ```
+  模型测试集准确率为： 0.9666666666666667
+                precision    recall  f1-score   support
+  
+            -1       0.93      1.00      0.96        13
+             1       1.00      0.94      0.97        17
+  
+      accuracy                           0.97        30
+     macro avg       0.96      0.97      0.97        30
+  weighted avg       0.97      0.97      0.97        30
+  ```
+
+  支持向量个数：12
+
+* C=2
+
+  预测结果：
+
+  ```
+  模型测试集准确率为： 0.9333333333333333
+                precision    recall  f1-score   support
+  
+            -1       0.93      0.93      0.93        14
+             1       0.94      0.94      0.94        16
+  
+      accuracy                           0.93        30
+     macro avg       0.93      0.93      0.93        30
+  weighted avg       0.93      0.93      0.93        30
+  ```
+
+  支持向量个数：11
+
+* C= 5
+
+  预测结果:
+
+  ```
+  模型测试集准确率为： 0.9333333333333333
+                precision    recall  f1-score   support
+  
+            -1       0.87      1.00      0.93        13
+             1       1.00      0.88      0.94        17
+  
+      accuracy                           0.93        30
+     macro avg       0.93      0.94      0.93        30
+  weighted avg       0.94      0.93      0.93        30
+  ```
+
+  支持向量个数: 11
+
+
+
+### 五、多分类支持向量机SVM实例
+
+> 数据
+
+使用Iris数据集
+
+```python
+# 1.读取数据集
+d = load_iris()
+
+# 2.划分数据与标签
+x = d.data
+y = d.target
+```
+
+> 代码
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time : 2020/6/8 17:00
+# @Author : Kai
+# @File : 多分类.py
+# @Software: PyCharm
+
+from sklearn import svm
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+
+# 1.读取数据集
+d = load_iris()
+
+# 2.划分数据与标签
+x = d.data
+y = d.target
+x = x[:, 0:2]
+train_data, test_data, train_label, test_label = train_test_split(x, y, random_state=0, train_size=0.7,test_size=0.3)
+
+# 3.训练svm分类器
+classifier = svm.SVC(C=2, kernel='rbf', gamma=10, decision_function_shape='ovo')  # ovr:一对多策略
+classifier.fit(train_data, train_label.ravel())  # ravel函数在降维时默认是行序优先
+
+# 4.计算svc分类器的准确率
+print("训练集：", classifier.score(train_data, train_label))
+print("测试集：", classifier.score(test_data, test_label))
+
+# 查看决策函数
+print('train_decision_function:\n', classifier.decision_function(train_data))  # (90,3)
+print('predict_result:\n', classifier.predict(train_data))
+
+# 输出支持向量
+print(classifier.support_vectors_)
+
+# 5.绘制图形
+# 确定坐标轴范围
+x1_min, x1_max = x[:, 0].min(), x[:, 0].max()  # 第0维特征的范围
+x2_min, x2_max = x[:, 1].min(), x[:, 1].max()  # 第1维特征的范围
+x1, x2 = np.mgrid[x1_min:x1_max:200j, x2_min:x2_max:200j]  # 生成网络采样点
+grid_test = np.stack((x1.flat, x2.flat), axis=1)  # 测试点
+# 指定默认字体
+matplotlib.rcParams['font.sans-serif'] = ['SimHei']
+# 设置颜色
+cm_light = matplotlib.colors.ListedColormap(['#A0FFA0', '#FFA0A0', '#A0A0FF'])
+cm_dark = matplotlib.colors.ListedColormap(['g', 'r', 'b'])
+
+grid_hat = classifier.predict(grid_test)  # 预测分类值
+grid_hat = grid_hat.reshape(x1.shape)  # 使之与输入的形状相同
+
+plt.pcolormesh(x1, x2, grid_hat, cmap=cm_light)  # 预测值的显示
+plt.scatter(x[:, 0], x[:, 1], c=y[:], s=30, cmap=cm_dark)  # 样本
+plt.scatter(test_data[:, 0], test_data[:, 1], c=test_label[:], s=30, edgecolors='k', zorder=2,
+            cmap=cm_dark)  # 圈中测试集样本点
+plt.xlabel('花萼长度', fontsize=13)
+plt.ylabel('花萼宽度', fontsize=13)
+plt.xlim(x1_min, x1_max)
+plt.ylim(x2_min, x2_max)
+plt.title('鸢尾花SVM二特征分类')
+plt.show()
+```
+
+
+
+> 准确率输出
+
+```python
+# 4.计算svc分类器的准确率
+print("训练集：", classifier.score(train_data, train_label))
+print("测试集：", classifier.score(test_data, test_label))
+
+---输出---
+训练集： 0.8666666666666667
+测试集： 0.6888888888888889
+```
+
+
+
+> 输出决策函数
+
+```python
+# 查看决策函数
+print('train_decision_function:\n', classifier.decision_function(train_data))
+```
+
+```
+输出：
+train_decision_function:
+ [[-1.00004209 -0.23343617  0.99995092]
+ [-1.0436294  -1.00035838 -1.0001592 ]
+ [-0.70263184 -1.00000186 -1.10240085]
+ [-0.72238801 -1.00000603 -0.70759974]
+ [-0.30594852 -0.99963117 -1.00039512]
+ [-1.0104992  -0.85005122  0.99959351]
+ .................(省略)................
+ [-1.00023309 -1.00022104  0.46119875]
+ [-0.0498111  -1.00004048 -1.00004235]
+ [ 1.06862501  1.09626808 -0.25200951]]
+```
+
+
+
+> 多分类可视化
+
+<img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200608221328946.png" alt="image-20200608221328946" style="zoom:67%;" />
+
+
+
+> 输出支持向量
+
+```python
+# 输出支持向量
+print(classifier.support_vectors_)
+```
+
+```
+输出：
+[[4.3 3. ]
+ [5.7 4.4]
+ [4.6 3.4]
+ [4.8 3. ]
+ [4.5 2.3]
+....(省略)...
+ [6.7 3.1]
+ [5.8 2.7]
+ [6.3 2.9]
+ [7.7 3.8]]
+```
+
+---
+
+
+
+## 聚类
+
+
+
+### 一、问题定义
+
+> 基本表示
+
+* 训练样本集合
+  $$
+  表示为\{x_1,x_2,...,x_m\}, 其中用m表示总样本个数，第i个训练样本表示为x_i。每一个训练样本由n项特征值组成
+  $$
+
+* 类（组，簇，cluster）
+
+  可能具有一定内在联系的个体群。第i个类表示为ci，类的个数一般表示为K，K<m。
+
+* 聚类中心
+  $$
+  多个个体组成的簇的中心。聚类中心的个数等于类的个数。第k个聚类中心表示为\mu_k
+  $$
+
+聚类本身是**集合的划分**问题
+
+无标签 无监督
+
+
+
+> 距离度量
+
+闵可夫斯基距离：
+$$
+假设数值点P和Q坐标为P(x_1,x_2,...,x_n)和Q(y_1,y_2,...,y_n)，则闵可夫斯基距离为：
+$$
+
+$$
+(\sum_{i=1}^n|x_i-y_i|^p)^\frac{1}{p}
+$$
+
+* p = 1 曼哈顿距离
+  $$
+  \sum_{i=1}^n|x_i-y_i|
+  $$
+
+* p = 2 欧几里得距离
+  $$
+  \sqrt{\sum_{i=1}^n|x_i-y_i|^2}
+  $$
+
+
+>常见聚类方法
+
+* 层次聚类
+
+  单连接(single linkage)：最相似的成员 
+
+  全连接(complete linkage)：最不相似成员
+
+  平均连接: 所有样本之间的平均值
+
+* **基于质心的聚类**
+
+* 基于概率分布的聚类
+
+* 基于密度的聚类
+
+* 基于图的聚类
+
+  **样本数据**作为**图的顶点**，根据数据之间的距离构造边，形成带权图
+  对图进行切割，**分成多个子图，就是多个类**
+
+
+
+### 二、基于质心的算法K-means算法
+
+> K-mean算法
+
+1、初始化K个聚类中心
+2、为每个个体分配聚类中心
+$$
+c^{(1)}:=arg \ \min_j{||x^{(i)}-\mu_j||}^2
+$$
+​	把每个样本分类，该样本**离哪个聚类中心近**，放入哪个类中
+
+3、移动聚类中心
+$$
+J(c,u) = \sum_{i=1}^m||x^{(i)}-\mu_c^{(i)}||^2
+$$
+4、重复迭代, 直到聚类中心不变或者变化很小
+
+
+
+---
+
+如何保证收敛：
+
+* J函数表示每个**样本点到其质心的距离平方和**。
+* 假设当前J没有达到最小值，那么首先可以**固定每个类的质心**，**调整每个样例所属的类别**来让J函数减少
+* **固定所属的类别**，**调整每个类的质心**也可以使J减小。
+* 这两个过程就是内循环中使J单调递减的过程。当J递减到最小时，聚类中心和所属类别同时收敛。
+
+---
+
+
+
+* 优点
+
+  1.原理简单，实现方便，收敛速度快；
+  2.聚类效果较优；
+  3.模型的可解释性较强；
+  4.调参只需要簇数k；
+
+* 缺点
+
+  1.k的选取不好把握；
+  2.初始聚类中心的选择；
+  3.如果数据的类型不平衡，比如数据量严重失衡或者类别的方差不同，则聚类效果不佳；
+  4.采用的是迭代的方法，只能得到局部最优解；
+  5.对于噪声和异常点比较敏感。
+
+
+
+### 三、基于概率分布的聚类
+
+>  EM算法
+
+* E步是确定隐含类别变量所属类别
+
+  * E步就是估计隐含类别y的期望值
+
+* M步更新其他参数（聚类中心）来使J最小化。
+  * 极大似然估计P(x,y)能够达到极大值。
+  * 然后在其他参数确的情况下，重新估计y。
+
+---
+
+* 算法步骤：
+  * E步：计算期望（E），利用对隐藏变量（类别）的现有估计值，计算最大似然估计值           
+  * M步：最大化（M），最大化在E步上求得的最大似然值来计算参数的值。
+  * M步上找到的参数估计值被用于下一个E步计算中，这个过程不断交替进行。
+
+
+
+### 四、基于密度的聚类
+
+此类算法假设聚类结构能通过样本分布的**紧密程度**来决定。
+
+通常情况下，密度聚类算法从**样本密度**的角度来考察样本之间的可连接性，并**基于可连接样本**不断**扩展聚类簇**来获得最终的聚类结果。
+
+> DBSCAN算法
+
+$$
+基于一组“领域”参数(\epsilon, MinPts)来刻画样本分布的紧密程度。
+$$
+
+* 基本概念
+  $$
+  \epsilon领域：对样本x_i \in D,其\epsilon邻域包含样本集D中与x_j的距离不大于\epsilon的样本 \\
+  核心对象：若样本x_j的\epsilon邻域至少包含MinPts个样本,则该样本点为一个核心对象。\\
+  密度直达：若样本x_j位于样本x_i的\epsilon邻域中，且x_i是一个核心对象，则称样本x_j由x_i密度直达。\\
+  \ \\
+  密度可达：对样本x_i与x_j,若存在样本序列p_1,p_2,...,p_n,\\其中p_1 = x_i, p_n = x_j且p_{i+1}由p_i密度直达，则该两样本密度可达\\
+  密度相连：对样本x_i与x_j,若存在样本x_k使得两样本均由x_k密度可达，则称该两样本密度相连。
+  $$
+  
+* 簇：由密度可达关系导出的最大密度相连样本集合。
+
+* 算法步骤：
+  $$
+  1. 任意选取一个点p \\
+  2. 得到所有从p关于\epsilon和MinPts密度可达的点 \\
+  3. 如果p是一个核心点，则找到一个聚类 \\
+  4. 如果p是一个边界点，没有从p密度可达的点，DBSCAN将访问数据库中的下一个点。\\
+  5. 继续这一过程，直到数据库中的所有点都被处理。
+  $$
+  
+
+  
+
+### 五、性能度量
+
+* 外部指标：Jaccard系数、FM系数、Rand系数
+
+* 内部指标：簇C内样本间的平均距离、簇C内样本间的最远距离、
+
+  ​						簇Ci与簇Cj最近样本间的距离、簇Ci与簇Cj最近样本间的距离
+
+* 基本思想：“**簇内相似度**” 高且“**簇间相似度**” 低
+
+
+
+### 六、K-means以及DBSCAN实例
+
+
+
+> 数据集描述
+
+源于**google的广告关键词推荐页面**，样本属性包括**关键词、编号、月均搜索量、竞争力、估价以及关键词排名**，包含六种属性。
+
+该数据集的`shape`为`266*6`（即266条数据，每个样例六个属性）
+
+部分数据集截图：
+
+![image-20200610171517415](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610171517415.png)
+
+部分数据如下：
+
+| 关键词       | 编号 | 搜索量 | 竞争价值 | 估价  | 排名 |
+| ------------ | ---- | ------ | -------- | ----- | ---- |
+| 股票学习网   | 8    | 20     | 0.11     | 27.19 | 193  |
+| 股票初学     | 15   | 20     | 0.16     | 22.41 | 171  |
+| 指数股票     | 16   | 20     | 0.07     | 26.66 | 191  |
+| 怎样看股票   | 18   | 20     | 0.14     | 18.93 | 155  |
+| 股票入门教程 | 30   | 20     | 0.11     | 17.5  | 149  |
+| 购买股票     | 31   | 20     | 0.2      | 23.75 | 180  |
+| 股票交流     | 35   | 30     | 0.11     | 19.17 | 160  |
+| 中国股市论坛 | 44   | 30     | 0.16     | 23.98 | 182  |
+| 上海股票指数 | 50   | 30     | 0.04     | 29.41 | 196  |
+| 股票开户流程 | 54   | 30     | 0.1      | 25.71 | 187  |
+
+**本实验中选择了`竞争价值`和`股价`两个属性进行聚类和可视化。**
+
+
+
+> 肘方法选择k值
+
+##### 手肘法核心思想
+
+- 随着聚类数k的增大，样本划分会更加精细，每个簇的聚合程度会逐渐提高，那么误差平方和SSE自然会逐渐变小。
+- 当k小于真实聚类数时，由于k的增大会大幅增加每个簇的聚合程度，故SSE的下降幅度会很大，而当k到达真实聚类数时，再增加k所得到的聚合程度回报会迅速变小，所以SSE的下降幅度会骤减，然后随着k值的继续增大而趋于平缓，也就是说SSE和k的关系图是一个手肘的形状，而这个肘部对应的k值就是数据的真实聚类数
+
+---
+
+* 代码
+
+```python
+# 肘方法选择最优的K值
+def try_K():
+    X = loadData()
+    K = range(1, 10)
+    meandistortions = []
+    for k in K:
+        kmeans = KMeans(n_clusters=k)
+        kmeans.fit(X)
+        meandistortions.append(sum(np.min(cdist(X, kmeans.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0])
+    plt.plot(K, meandistortions, 'bx-')
+    plt.xlabel('k')
+    plt.ylabel('meandistortions')
+    plt.title('best K of the model');
+    plt.show()
+```
+
+* 运行效果
+
+<img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610174542180.png" alt="image-20200610174542180" style="zoom:80%;" />
+
+根据上图可知当k=4时对应“肘部”，所以`k=4`是最优的`k`值
+
+
+
+> 聚类并可视化聚类结果
+
+* 代码
+
+  ```python
+  # 聚类 并可视化聚类结果
+  def Kmeans():
+      data = loadData()
+      # 类簇的数量
+      n_clusters = 6
+      # 调用Kmeans聚类
+      cls = KMeans(n_clusters).fit(data)
+      # 输出X中每项所属分类的一个列表
+      print("样本所属分类：",cls.labels_)
+  
+      # 可视化
+      markers = ['*', 'o', '+', 's', 'v', '8']
+      cl = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+      centers = cls.cluster_centers_  # 各类别中心
+      print("聚类中心：", centers)
+      for i in range(n_clusters):
+          members = cls.labels_ == i  # members是布尔数组 表示是否是此i类的
+          plt.scatter(data[members, 0], data[members, 1], s=60, marker=markers[i], c=cl[i], alpha=0.5)  # 画与menbers数组中匹配的点
+          plt.plot(centers[i][0], centers[i][1], '*', markerfacecolor=cl[i], markeredgecolor='k', markersize=6) # 画出聚类中心
+  
+      plt.title('Kmeans from Zth_Kai')
+      plt.show()
+  ```
+
+* 运行效果截图
+
+  * k=4
+
+  <img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610174947745.png" alt="image-20200610174947745" style="zoom: 50%;" />
+
+  其中的`*`表示聚类中心
+
+  * k=5
+
+  ![image-20200610175113641](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610175113641.png)
+
+  * k = 6
+
+  ![image-20200610175417763](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610175417763.png)
+
+* 样本所属分类和聚类中心输出（k=4）：
+
+  <img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610175548922.png" alt="image-20200610175548922" style="zoom:80%;" />
+
+
+
+> 规范化前后对比 使用平均轮廓系数分析聚类效果
+
+* 规范化代码（在读取代码部分）
+
+  ```python
+  # 读取数据
+  def loadData():
+      data = []
+      fr = open('KmeansDataset.data','r', encoding='UTF-8')
+      # 选择竞争价值和估价两个属性
+      for data_i in fr:
+          data.append([float(data_i.split()[3]), float(data_i.split()[4])])
+  
+      data = np.array(data)
+  
+      # 数据规范化
+      min_max_scaler = preprocessing.MinMaxScaler()
+      data = min_max_scaler.fit_transform(data)
+      # print(data)
+      return data
+  ```
+
+  规范化数据为**竞争价值**和**估价**两个属性
+
+* 使用平均轮廓系数分析聚类效果代码 (k  = 4)
+
+  ```python
+  # 用平均轮廓系数分析聚类效果
+  def showClusteringEffect():
+      X = loadData()
+      cls = KMeans(4).fit(X)
+      y_pre = cls.predict(X)
+      silhouette_s = metrics.silhouette_score(X, y_pre, metric='euclidean')  # 平均轮廓系数
+      print("平均轮廓系数", silhouette_s)
+  ```
+
+  规范化前:
+
+  ![image-20200610180547965](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610180547965.png)
+
+  规范化后：
+
+  ![image-20200610180609391](C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610180609391.png)
+
+
+
+> 选做：DBSCAN算法实现该数据集聚类
+
+* 选择“邻域”参数
+  $$
+  \epsilon = 0.05 \ MinPts = 20
+  $$
+  
+* DBSCAN代码
+
+  ```python
+  def myDbscan():
+      X = loadData()
+      print(X.shape)
+  
+      dbscan = DBSCAN(eps=0.05, min_samples=20)
+      dbscan.fit(X)
+  
+      label_pred = dbscan.labels_
+      print(label_pred)
+      x0 = X[label_pred == 0]
+      x1 = X[label_pred == -1]
+      plt.scatter(x0[:, 0], x0[:, 1], c="red", marker='o', label='label0')
+      plt.scatter(x1[:, 0], x1[:, 1], c="green", marker='o', label='label1')
+      plt.show()
+  ```
+
+* 输出：
+
+  <img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610181207095.png" alt="image-20200610181207095" style="zoom:67%;" />
+
+* 可视化截图
+
+  <img src="C:\Users\38004\AppData\Roaming\Typora\typora-user-images\image-20200610181230413.png" alt="image-20200610181230413" style="zoom: 33%;" />
+
+  该基于密度的聚类算法将样本分成了两个类
+
+  
+
+> 完整代码
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time : 2020/6/10 11:04
+# @Author : Kai
+# @File : __init__.py.py
+# @Software: PyCharm
+
+import numpy as np
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from sklearn import preprocessing
+from scipy.spatial.distance import cdist
+from sklearn import metrics
+from sklearn.cluster import DBSCAN
+# 读取数据
+def loadData():
+    data = []
+    fr = open('KmeansDataset.data','r', encoding='UTF-8')
+    # 选择竞争价值和估价两个属性
+    for data_i in fr:
+        data.append([float(data_i.split()[3]), float(data_i.split()[4])])
+
+    data = np.array(data)
+
+    # 数据规范化
+    min_max_scaler = preprocessing.MinMaxScaler()
+    data = min_max_scaler.fit_transform(data)
+    # print(data)
+    return data
+
+# 聚类 并可视化聚类结果
+def Kmeans():
+    data = loadData()
+    # 类簇的数量
+    n_clusters = 4
+    # 调用Kmeans聚类
+    cls = KMeans(n_clusters).fit(data)
+    # 输出X中每项所属分类的一个列表
+    print("样本所属分类：",cls.labels_)
+
+    # 可视化
+    markers = ['*', 'o', '+', 's', 'v', '8']
+    cl = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+    centers = cls.cluster_centers_  # 各类别中心
+    print("聚类中心：", centers)
+    for i in range(n_clusters):
+        members = cls.labels_ == i  # members是布尔数组 表示是否是此i类的
+        plt.scatter(data[members, 0], data[members, 1], s=60, marker=markers[i], c=cl[i], alpha=0.5)  # 画与menbers数组中匹配的点
+        plt.plot(centers[i][0], centers[i][1], '*', markerfacecolor=cl[i], markeredgecolor='k', markersize=6) # 画出聚类中心
+
+    plt.title('Kmeans from Zth_Kai')
+    plt.show()
+
+# 肘方法选择最优的K值
+def try_K():
+    X = loadData()
+    K = range(1, 10)
+    meandistortions = []
+    for k in K:
+        kmeans = KMeans(n_clusters=k)
+        kmeans.fit(X)
+        meandistortions.append(sum(np.min(cdist(X, kmeans.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0])
+    plt.plot(K, meandistortions, 'bx-')
+    plt.xlabel('k')
+    plt.ylabel('meandistortions')
+    plt.title('best K of the model');
+    plt.show()
+
+# 用平均轮廓系数分析聚类效果
+def showClusteringEffect():
+    X = loadData()
+    cls = KMeans(4).fit(X)
+    y_pre = cls.predict(X)
+    silhouette_s = metrics.silhouette_score(X, y_pre, metric='euclidean')  # 平均轮廓系数
+    print("平均轮廓系数", silhouette_s)
+
+# DBSCAN 基于密度的聚类
+def myDbscan():
+    X = loadData()
+    print(X.shape)
+
+    dbscan = DBSCAN(eps=0.05, min_samples=20)
+    dbscan.fit(X)
+
+    label_pred = dbscan.labels_
+    print(label_pred)
+    x0 = X[label_pred == 0]
+    x1 = X[label_pred == -1]
+    plt.scatter(x0[:, 0], x0[:, 1], c="red", marker='o', label='label0')
+    plt.scatter(x1[:, 0], x1[:, 1], c="green", marker='o', label='label1')
+    plt.show()
+
+if __name__ == "__main__":
+    try_K()
+    Kmeans()
+    showClusteringEffect()
+    # myDbscan()
+```
+
+
+
+## 机器学习
