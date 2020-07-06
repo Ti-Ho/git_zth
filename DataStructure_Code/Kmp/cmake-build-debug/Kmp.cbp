@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Kmp"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kmp">
+				<Option output="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Kmp.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 Kmp"/>
+					<CompileFile command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kmp/fast">
+				<Option output="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Kmp.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/8.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 Kmp/fast"/>
+					<CompileFile command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/CodeBlocks/MinGW/bin/mingw32-make.exe -f &quot;D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/main.cpp">
+			<Option target="Kmp"/>
+		</Unit>
+		<Unit filename="D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/Kmp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
