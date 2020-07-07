@@ -52,6 +52,7 @@ void LevelOrder(Node *root){
     }
 }
 
+//按照前序遍历创建树
 Node *CreateTree(){
     Node* node = NULL;  //这里要加NULL,不然会出错
     char ch = getchar();
@@ -64,6 +65,7 @@ Node *CreateTree(){
     return node;
 }
 
+//按照先序和中序创建二叉树
 Node* createByPreAndIn(int preL, int preR, int inL, int inR){
     if(preL > preR) return NULL;
     Node *root = new Node;
