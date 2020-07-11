@@ -18,6 +18,8 @@ void getNext(){
     }
 }
 
+
+
 void getNextVal(){  // KMP进一步优化
     int i , j;
     j = Next[0] = -1;

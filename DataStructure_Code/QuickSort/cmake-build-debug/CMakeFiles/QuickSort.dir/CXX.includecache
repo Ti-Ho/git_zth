@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/360MoveData/Users/38004/Desktop/GitFile/git_zth/DataStructure_Code/QuickSort/main.cpp
+iostream
+-
+
