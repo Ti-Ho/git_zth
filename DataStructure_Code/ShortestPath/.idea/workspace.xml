@@ -12,12 +12,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="259b51a3-50a6-4155-9bc5-b822eb5bf9cb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../BinarySortTree/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BinarySortTree/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinaryTree/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BinaryTree/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DisjointSet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DisjointSet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GraphAdjacencyList/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GraphAdjacencyList/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Kmp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Kmp/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../BigDataProject/java_backend/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ACM/acwing/排序乱码需要重做.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BigDataProject/java_backend/src/main/java/com/kai/java_backend/util/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../BigDataProject/java_backend/src/main/java/com/kai/java_backend/util/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BigDataProject/java_backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../BigDataProject/java_backend/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../QuickSort/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../QuickSort/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/CategoryDynaSqlProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/CategoryDynaSqlProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/CategoryMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/CategoryMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/OrderItemMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/OrderItemMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/OrderMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/OrderMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/ProductMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/mapper/ProductMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/classes/com/how2java/pojo/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/TestCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/TestCRUD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/TestManyToOne.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/TestManyToOne.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/com/how2java/TestDynaSQL.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java学习/mybatis_project/mybatis_annotation/target/test-classes/com/how2java/TestManyToMany.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="686">
+              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -70,7 +83,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -82,6 +94,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -126,16 +139,19 @@
       <workItem from="1594388059553" duration="735000" />
       <workItem from="1594442185357" duration="637000" />
       <workItem from="1594738686980" duration="40000" />
+      <workItem from="1595659278851" duration="3000" />
+      <workItem from="1598965765573" duration="16000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7704000" />
+    <option name="totallyTimeSpent" value="7723000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26340482" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27010724" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -161,9 +177,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../BinaryTree/main.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -174,10 +187,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="686">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
         </state>
       </provider>
     </entry>

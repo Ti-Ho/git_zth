@@ -39,7 +39,7 @@ Node *GetElem(Node *L, int i){
 	if(i < 1) return NULL;
 	while(p && cnt < i){
 		p = p -> next;
-		cnt ++;
+        cnt ++;
 	}
 	return p;
 }
